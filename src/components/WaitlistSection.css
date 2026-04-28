@@ -1,0 +1,80 @@
+﻿.waitlist {
+  border: 1px solid rgba(137, 114, 111, 0.35);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.72);
+  padding: 36px;
+  display: grid;
+  gap: 24px;
+}
+
+.waitlist__header {
+  display: grid;
+  gap: 10px;
+  max-width: 740px;
+}
+
+.waitlist__header h2 {
+  font-size: clamp(30px, 5vw, 42px);
+}
+
+.waitlist__form {
+  display: grid;
+  gap: 10px;
+}
+
+.waitlist__form label {
+  font-weight: 600;
+}
+
+.waitlist__formRow {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+}
+
+.waitlist__formRow input {
+  min-height: 48px;
+  border: 1px solid rgba(137, 114, 111, 0.42);
+  border-radius: 4px;
+  padding: 0 14px;
+  font-size: 16px;
+}
+
+.waitlist__formRow button {
+  min-height: 48px;
+  border: 1px solid var(--primary-dark);
+  border-radius: 4px;
+  background: linear-gradient(180deg, #a13e39 0%, #8b2e2a 100%);
+  color: #fff;
+  font-weight: 700;
+  padding: 0 18px;
+}
+
+.waitlist__status {
+  min-height: 24px;
+  font-size: 14px;
+}
+
+.waitlist__status[data-kind='ok'] {
+  color: #1f6f43;
+}
+
+.waitlist__status[data-kind='error'] {
+  color: #8f2b22;
+}
+
+.waitlist__meta {
+  border-top: 1px solid rgba(137, 114, 111, 0.25);
+  padding-top: 18px;
+  color: var(--ink-soft);
+}
+
+@media (max-width: 900px) {
+  .waitlist {
+    padding: 24px;
+  }
+
+  .waitlist__formRow {
+    grid-template-columns: 1fr;
+  }
+}
