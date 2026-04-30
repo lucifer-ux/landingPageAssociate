@@ -10,7 +10,7 @@
 }
 
 .demo__intro h2 {
-  font-size: clamp(42px, 5vw, 68px);
+  font-size: clamp(34px, 5vw, 56px);
   line-height: 1.08;
 }
 
@@ -49,12 +49,12 @@
 }
 
 .demoSplit__text h3 {
-  font-size: clamp(34px, 4vw, 52px);
+  font-size: clamp(28px, 4vw, 42px);
   line-height: 1.12;
 }
 
 .demoSplit__text .muted {
-  font-size: clamp(18px, 1.5vw, 28px);
+  font-size: clamp(16px, 1.5vw, 20px);
 }
 
 .demoSplit__media {
@@ -63,11 +63,26 @@
   overflow: hidden;
 }
 
-.demoSplit__media img {
-  display: block;
-  width: 100%;
-  height: 380px;
-  object-fit: cover;
+.demoSplit__placeholder {
+  min-height: 380px;
+  padding: 26px;
+  display: grid;
+  align-content: center;
+  gap: 12px;
+}
+
+.demoSplit__placeholder p:first-child {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--secondary);
+}
+
+.demoSplit__placeholder p:last-child {
+  color: var(--ink-soft);
+  line-height: 1.6;
+  font-size: 15px;
 }
 
 @media (max-width: 1100px) {
@@ -82,7 +97,7 @@
     order: initial;
   }
 
-  .demoSplit__media img {
-    height: 320px;
+  .demoSplit__placeholder {
+    min-height: 280px;
   }
 }

@@ -13,47 +13,47 @@ const baseWaitlist = [
 
 const demos = [
   {
-    title: 'Legal Research, Grounded In Sources',
+    act: 'Act 1 — Intake',
+    title: 'You hand over the file. Associate reads it.',
     description:
-      'Surface case law and precedent with citation-linked summaries so associates can move from question to trusted answer without context switching.',
-    gif: 'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExODV5Zm5mM2x0N2Mzb2VzeXd4ZWx0MzNoYTF6MGwzMmN6NXV3OWNoZSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/l0HlBO7eyXzSZkJri/giphy.gif'
+      "Drop in whatever you have. The vakalatnama. The WhatsApp thread. The email from opposing counsel you forgot about for two days. Associate reads it the way a good junior would, quietly and carefully. By the time you're ready to think about the matter, it has already pulled the relevant judgments from eCourts and India Code.",
+    placeholder:
+      'Lawyer drops a vakalatnama and three WhatsApp screenshots into a clean canvas. Editorial text appears below as Associate works with verified source tags beside each finding.'
   },
   {
-    title: 'Easy Drafting For High-Stakes Work',
+    act: 'Act 2 — Brief',
+    title: 'Associate hands you back the matter you should have spent two days building.',
     description:
-      'Build first drafts from approved language banks and redline faster with structured clause suggestions tailored to matter context.',
-    gif: 'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdnV3N3M5aGp6d2dzbTZ5dXllcWZmZmJldmV0bDJwMzA4M2FoM2Q5MSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/xUPGcguWZHRC2HyBRS/giphy.gif'
+      "What kind of matter this is. Who the parties are. What the law actually says, and what's missing. Every citation is verified. Where the law is genuinely unsettled, it tells you that with both positions instead of picking one for you. You still do the thinking. That part has not changed.",
+    placeholder:
+      'Editorial brief renders on screen as if typed by a senior associate. Sections appear in sequence with VERIFIED tags on each citation.'
   },
   {
-    title: 'Proactive Agent Execution',
+    act: 'Act 3 — Work',
+    title: 'Then you do the work. With the agent in the margin, never in the way.',
     description:
-      'Let an agent track deadlines, prepare follow-ups, and draft next actions so your team spends more time on legal judgment.',
-    gif: 'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcXFlbjBtYjM4MWE4M3V6dWU2MnVrcHBlNWVna21qa2YxMmx0Z2N6NSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/3o7aD2saalBwwftBIY/giphy.gif'
-  },
-  {
-    title: 'Practice-Wide Matter Visibility',
-    description:
-      'Monitor progress, bottlenecks, and risk signals across all matters from a single command layer built for legal leadership.',
-    gif: 'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbTQydTRsNGhjaG1tb2VrM2hqcGU4cnQ3dnd6M2d5c2hueXQ1Z2x4ZSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/f3iwJFOVOwuy7K6FFw/giphy.gif'
+      'Drafting opens the document. Margin annotations appear with sources against your playbook and Indian law. Accept, reject, modify. Your call. During DD review, the agent flags section-level risks and clause references, then keeps filings, checklists, court fee logic, and artifacts complete as the matter closes.',
+    placeholder:
+      'Lawyer reviews the Sharma Textiles MoA with CRITICAL annotations and options: Add to report, Modify, Dismiss. Status bar shows save time, document number, and review progress.'
   }
 ];
 
 const capabilities = [
   {
-    title: 'Automated Case Analysis',
-    body: 'Rapidly synthesize thousands of documents to identify key precedents, liabilities, and arguments.'
+    title: 'Context Fragmentation',
+    body: 'The lawyer doing the actual work in India today switches between eight to twelve tools to close a single matter. They become the memory layer holding everything together.'
   },
   {
-    title: 'Secure Document Management',
-    body: 'Centralized, encrypted vaults for all sensitive case files with granular access controls.'
+    title: 'Session-By-Session AI',
+    body: 'Most AI tools help with one document at a time. The next session starts from zero, so the lawyer rebuilds context from memory, every single time.'
   },
   {
-    title: 'AI-Driven Research',
-    body: 'Natural language queries across global legal databases returning synthesized, cited briefs.'
+    title: 'Verification Burden',
+    body: 'When AI cites a case, you still open the judgment yourself. It may use the right case for the wrong proposition or miss that a ruling was overturned.'
   },
   {
-    title: 'Compliance Monitoring',
-    body: "Real-time alerts on regulatory shifts impacting your clients' specific operational domains."
+    title: 'False Time Savings',
+    body: "The tool that should save one hour can cost ninety minutes of verification. The problem is not whether AI can help Indian lawyers. It's whether a lawyer can trust it."
   }
 ];
 
@@ -135,7 +135,7 @@ function App() {
           Associate
         </a>
         <nav className="topbar__nav" aria-label="Primary">
-          <a href="#">Solutions</a>
+          <a href="#">Blogs</a>
           <a href="#demos">Demos</a>
           <a href="#">Security</a>
           <a href="#">Pricing</a>
@@ -148,25 +148,25 @@ function App() {
       </header>
 
       <section className="hero">
-        <h1>The New Standard in Legal Intelligence.</h1>
-        <p className="hero__tagline">
-          Associate empowers elite legal teams with AI-driven analysis, secure document management, and unparalleled
-          compliance tools. Elevate your practice.
-        </p>
+        <h1>The AI workspace for Indian lawyers</h1>
+        <h2 className="hero__subhead">The associate you couldn&apos;t afford. Now you can.</h2>
         <div className="hero__actions">
           <button type="button" onClick={() => setIsSignupOpen(true)}>
-            Book a Demo
+            Try Associate
           </button>
-          <a href="#precision" className="ghostButton">
-            Explore Features
-          </a>
+          
         </div>
+        <p className="hero__note">Built in India. For India&apos;s 1.7 million advocates. From day one.</p>
       </section>
 
       <section className="capabilities" id="precision">
         <div className="capabilities__intro">
-          <h2>Precision Engineered for Practice.</h2>
-          <p className="muted">Discover how Associate transforms vast legal datasets into actionable strategic advantages.</p>
+          <p className="eyebrow">The Problem</p>
+          <h2>Every legal AI tool generates. Nobody verifies.</h2>
+          <p className="muted">
+            AI can help Indian lawyers. But until verification is native, context is persistent, and uncertainty is
+            explicit, trust stays on the lawyer and not the tool.
+          </p>
         </div>
 
         <div className="capabilities__grid">
@@ -188,8 +188,8 @@ function App() {
         <div className="security__icon" aria-hidden="true" />
         <h2>Uncompromising Security.</h2>
         <p>
-          In the legal sector, trust is paramount. Associate employs bank-grade encryption and stringent data privacy
-          protocols to ensure client confidentiality is never breached.
+           Associate employs bank-grade encryption and stringent data privacy
+          protocols to ensure confidentiality is never breached.
         </p>
         <div className="security__pills">
           <span>SOC 2 TYPE II CERTIFIED</span>
@@ -199,13 +199,21 @@ function App() {
         </div>
       </section>
 
+      <section className="closingCta">
+        <h2>One Lawyer with Associate should feel like Ten.</h2>
+        <p>
+          We&apos;re building this for the advocate in Bengaluru with forty active matters and no support staff, not
+          just the firms that already have both.
+        </p>
+        <button type="button" onClick={() => setIsSignupOpen(true)}>
+          Try Associate
+        </button>
+      </section>
+
       <footer className="footer">
-        <strong>Associate</strong>
-        <a href="#">Privacy Policy</a>
-        <a href="#">Terms of Service</a>
-        <a href="#">Cookie Policy</a>
-        <a href="#">Contact</a>
-        <span>© 2024 Associate Legal Technologies. All rights reserved.</span>
+        <p>Thank you for reading this far.</p>
+        <p>Associate · Built in Bengaluru, for India </p>
+        <p>© 2026 Associate</p>
       </footer>
 
       {isSignupOpen ? (
