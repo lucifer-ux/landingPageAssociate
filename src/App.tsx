@@ -1,6 +1,15 @@
 ﻿import { useMemo, useState } from 'react';
 import './App.css';
 import DemoSection from './components/DemoSection';
+import delloite from './assets/delloite.jpeg';
+import henryHuges from './assets/HenryHuges.jpeg';
+import logicGnosis from './assets/logicGnosis.jpeg';
+import oddisaJudicial from './assets/oddisaJudicial.jpeg';
+import shardulAmarchand from './assets/shardulAmarchand.jpeg';
+import wadiyaChandi from './assets/WadiyaChandi.jpeg';
+import firstPage from './assets/firstPage.mp4';
+import secondPage from './assets/secondPage.mp4';
+import thirdRecording from './assets/thirdrecording.mp4';
 
 const baseWaitlist = [
   'rachel.hill@stonebridgelegal.com',
@@ -17,6 +26,7 @@ const demos = [
     title: 'You hand over the file. Associate reads it.',
     description:
       "Drop in whatever you have. The vakalatnama. The WhatsApp thread. The email from opposing counsel you forgot about for two days. Associate reads it the way a good junior would, quietly and carefully. By the time you're ready to think about the matter, it has already pulled the relevant judgments from eCourts and India Code.",
+    mediaSrc: firstPage,
     placeholder:
       'Lawyer drops a vakalatnama and three WhatsApp screenshots into a clean canvas. Editorial text appears below as Associate works with verified source tags beside each finding.'
   },
@@ -25,6 +35,7 @@ const demos = [
     title: 'Associate hands you back the matter you should have spent two days building.',
     description:
       "What kind of matter this is. Who the parties are. What the law actually says, and what's missing. Every citation is verified. Where the law is genuinely unsettled, it tells you that with both positions instead of picking one for you. You still do the thinking. That part has not changed.",
+    mediaSrc: secondPage,
     placeholder:
       'Editorial brief renders on screen as if typed by a senior associate. Sections appear in sequence with VERIFIED tags on each citation.'
   },
@@ -33,6 +44,7 @@ const demos = [
     title: 'Then you do the work. With the agent in the margin, never in the way.',
     description:
       'Drafting opens the document. Margin annotations appear with sources against your playbook and Indian law. Accept, reject, modify. Your call. During DD review, the agent flags section-level risks and clause references, then keeps filings, checklists, court fee logic, and artifacts complete as the matter closes.',
+    mediaSrc: thirdRecording,
     placeholder:
       'Lawyer reviews the Sharma Textiles MoA with CRITICAL annotations and options: Add to report, Modify, Dismiss. Status bar shows save time, document number, and review progress.'
   }
@@ -57,36 +69,16 @@ const capabilities = [
   }
 ];
 
-function CapabilityIcon({ title }: { title: string }) {
-  if (title === 'Automated Case Analysis') {
-    return (
-      <svg className="capabilityCard__icon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
-        <rect x="3.5" y="3.5" width="17" height="17" rx="2.5" />
-        <path d="M8 15v-3M12 15V9M16 15V7" />
-      </svg>
-    );
-  }
+const logos = [
+  { src: delloite, name: 'Delloite Legal' },
+  { src: henryHuges, name: 'Henry Huges' },
+  { src: logicGnosis, name: 'Logic Gnosis' },
+  { src: oddisaJudicial, name: 'Oddisa Judicial' },
+  { src: shardulAmarchand, name: 'Shardul Amarchand' },
+  { src: wadiyaChandi, name: 'Wadiya Chandi' }
+];
 
-  if (title === 'Secure Document Management') {
-    return (
-      <svg className="capabilityCard__icon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
-        <path d="M3.5 7.5h7l2 2h8v8a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2z" />
-        <circle cx="16.5" cy="14.5" r="2.2" />
-        <path d="M16.5 11.8v1.1M16.5 16.1v1.1M13.8 14.5h1.1M17.6 14.5h1.1" />
-      </svg>
-    );
-  }
-
-  if (title === 'AI-Driven Research') {
-    return (
-      <svg className="capabilityCard__icon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
-        <circle cx="10.5" cy="10.5" r="6.5" />
-        <path d="m15.3 15.3 5.2 5.2" />
-        <path d="M6.8 10.8c.7-1.8 1.4-1.8 2.1 0 .7 1.8 1.4 1.8 2.1 0 .7-1.8 1.4-1.8 2.1 0" />
-      </svg>
-    );
-  }
-
+function CapabilityIcon() {
   return (
     <svg className="capabilityCard__icon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
       <path d="m4 20 6.5-6.5M10 6l8 8M8.4 4.4l2.2 2.2M13.5 9.5l2.2 2.2M18.6 14.6l2.2 2.2" />
@@ -98,6 +90,7 @@ function CapabilityIcon({ title }: { title: string }) {
 function App() {
   const [waitlist, setWaitlist] = useState(baseWaitlist);
   const [isSignupOpen, setIsSignupOpen] = useState(false);
+  const [isPricingOpen, setIsPricingOpen] = useState(false);
   const [email, setEmail] = useState('');
   const [signupStatus, setSignupStatus] = useState('');
   const [signupKind, setSignupKind] = useState<'ok' | 'error' | ''>('');
@@ -137,8 +130,10 @@ function App() {
         <nav className="topbar__nav" aria-label="Primary">
           <a href="#">Blogs</a>
           <a href="#demos">Demos</a>
-          <a href="#">Security</a>
-          <a href="#">Pricing</a>
+          <a href="#security">Security</a>
+          <button className="topbar__navButton" type="button" onClick={() => setIsPricingOpen(true)}>
+            Pricing
+          </button>
         </nav>
         <div className="topbar__right">
           <button className="topbar__cta" type="button" onClick={() => setIsSignupOpen(true)}>
@@ -154,7 +149,6 @@ function App() {
           <button type="button" onClick={() => setIsSignupOpen(true)}>
             Try Associate
           </button>
-          
         </div>
         <p className="hero__note">Built in India. For India&apos;s 1.7 million advocates. From day one.</p>
       </section>
@@ -173,12 +167,29 @@ function App() {
           {capabilities.map((item) => (
             <article className="capabilityCard" key={item.title}>
               <div className="capabilityCard__titleRow">
-                <CapabilityIcon title={item.title} />
+                <CapabilityIcon />
                 <h3>{item.title}</h3>
               </div>
               <p className="muted">{item.body}</p>
             </article>
           ))}
+        </div>
+      </section>
+
+      <section className="triedBy" aria-labelledby="tried-by-title">
+        <p className="triedBy__eyebrow">Tried By Lawyers At</p>
+        <h2 id="tried-by-title">Already in the hands of lawyers at the firms and companies you know.</h2>
+        <p className="triedBy__copy">
+          We&apos;ve shown Associate to in-house counsel, partners, and solo practitioners across India.
+        </p>
+        <div className="triedBy__slider">
+          <div className="triedBy__track">
+            {[...logos, ...logos].map((logo, index) => (
+              <div className="triedBy__item" key={`${logo.name}-${index}`}>
+                <img src={logo.src} alt={logo.name} />
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -188,7 +199,7 @@ function App() {
         <div className="security__icon" aria-hidden="true" />
         <h2>Uncompromising Security.</h2>
         <p>
-           Associate employs bank-grade encryption and stringent data privacy
+          Associate employs bank-grade encryption and stringent data privacy
           protocols to ensure confidentiality is never breached.
         </p>
         <div className="security__pills">
@@ -238,6 +249,60 @@ function App() {
             <p className="modal__status" data-kind={signupKind}>
               {signupStatus}
             </p>
+          </div>
+        </div>
+      ) : null}
+
+      {isPricingOpen ? (
+        <div className="modalBackdrop" role="dialog" aria-modal="true" aria-label="Pricing">
+          <div className="modal modal--pricing">
+            <button className="modal__close" type="button" onClick={() => setIsPricingOpen(false)} aria-label="Close">
+              x
+            </button>
+            <p className="eyebrow">Pricing</p>
+            <h3>Plans for every stage of practice</h3>
+            <div className="pricingGrid">
+              <article className="pricingCard">
+                <h4>Free</h4>
+                <p>₹0 / month</p>
+                <ul>
+                  <li>1 document</li>
+                  <li>5,000 tokens per day</li>
+                  <li>1 drafting iteration</li>
+                  <li>Basic research assistance</li>
+                </ul>
+              </article>
+              <article className="pricingCard">
+                <h4>Starter</h4>
+                <p>₹2,200 / month</p>
+                <ul>
+                  <li>7 documents</li>
+                  <li>20,000 AI tokens</li>
+                  <li>Unlimited drafting iterations</li>
+                  <li>Priority support</li>
+                </ul>
+              </article>
+              <article className="pricingCard">
+                <h4>Pro</h4>
+                <p>$80 / month</p>
+                <ul>
+                  <li>90,000 AI tokens</li>
+                  <li>Advanced matter workflows</li>
+                  <li>Unlimited drafting iterations</li>
+                  <li>Extended verification tools</li>
+                </ul>
+              </article>
+              <article className="pricingCard">
+                <h4>Enterprise</h4>
+                <p>Contact us</p>
+                <ul>
+                  <li>Potentially unlimited documents</li>
+                  <li>Potentially unlimited tokens</li>
+                  <li>Custom deployment and controls</li>
+                  <li>Dedicated account team</li>
+                </ul>
+              </article>
+            </div>
           </div>
         </div>
       ) : null}

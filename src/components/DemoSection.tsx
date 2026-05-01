@@ -4,6 +4,7 @@ type DemoItem = {
   act: string;
   title: string;
   description: string;
+  mediaSrc?: string;
   placeholder: string;
 };
 
@@ -15,23 +16,27 @@ function DemoSection({ items }: DemoSectionProps) {
   return (
     <section className="demo" id="demos">
       <div className="demo__intro">
-        <p className="eyebrow">How Associate Works</p>
-        <h2>The brief, the build, the work.</h2>
+        <h2>How Associate Works</h2>
+        <p className="demo__subhead">The brief, the build, the work.</p>
       </div>
 
       <div className="demo__stack">
         {items.map((item, index) => (
           <article className={`demoSplit ${index % 2 === 1 ? 'demoSplit--reverse' : ''}`} key={item.title}>
             <div className="demoSplit__text">
-              <p className="demoSplit__kicker">{item.act}</p>
-              <h3>{item.title}</h3>
+              <h3 className="demoSplit__kicker">{item.act}</h3>
+              <h4 className="demoSplit__subhead">{item.title}</h4>
               <p className="muted">{item.description}</p>
             </div>
             <div className="demoSplit__media">
-              <div className="demoSplit__placeholder">
-                <p>GIF placeholder</p>
-                <p>{item.placeholder}</p>
-              </div>
+              {item.mediaSrc ? (
+                <video className="demoSplit__video" src={item.mediaSrc} autoPlay loop muted playsInline controls />
+              ) : (
+                <div className="demoSplit__placeholder">
+                  <p>GIF placeholder</p>
+                  <p>{item.placeholder}</p>
+                </div>
+              )}
             </div>
           </article>
         ))}
