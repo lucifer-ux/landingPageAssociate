@@ -22,7 +22,7 @@ const baseWaitlist = [
 
 const demos = [
   {
-    act: 'Act 1 — Intake',
+    act: 'Act 1 Intake',
     title: 'You hand over the file. Associate reads it.',
     description:
       "Drop in whatever you have. The vakalatnama. The WhatsApp thread. The email from opposing counsel you forgot about for two days. Associate reads it the way a good junior would, quietly and carefully. By the time you're ready to think about the matter, it has already pulled the relevant judgments from eCourts and India Code.",
@@ -31,7 +31,7 @@ const demos = [
       'Lawyer drops a vakalatnama and three WhatsApp screenshots into a clean canvas. Editorial text appears below as Associate works with verified source tags beside each finding.'
   },
   {
-    act: 'Act 2 — Brief',
+    act: 'Act 2 Brief',
     title: 'Associate hands you back the matter you should have spent two days building.',
     description:
       "What kind of matter this is. Who the parties are. What the law actually says, and what's missing. Every citation is verified. Where the law is genuinely unsettled, it tells you that with both positions instead of picking one for you. You still do the thinking. That part has not changed.",
@@ -40,7 +40,7 @@ const demos = [
       'Editorial brief renders on screen as if typed by a senior associate. Sections appear in sequence with VERIFIED tags on each citation.'
   },
   {
-    act: 'Act 3 — Work',
+    act: 'Act 3 Work',
     title: 'Then you do the work. With the agent in the margin, never in the way.',
     description:
       'Drafting opens the document. Margin annotations appear with sources against your playbook and Indian law. Accept, reject, modify. Your call. During DD review, the agent flags section-level risks and clause references, then keeps filings, checklists, court fee logic, and artifacts complete as the matter closes.',
@@ -56,7 +56,7 @@ const capabilities = [
     body: 'The lawyer doing the actual work in India today switches between eight to twelve tools to close a single matter. They become the memory layer holding everything together.'
   },
   {
-    title: 'Session-By-Session AI',
+    title: 'Session By Session AI',
     body: 'Most AI tools help with one document at a time. The next session starts from zero, so the lawyer rebuilds context from memory, every single time.'
   },
   {
@@ -91,6 +91,7 @@ function App() {
   const [waitlist, setWaitlist] = useState(baseWaitlist);
   const [isSignupOpen, setIsSignupOpen] = useState(false);
   const [isPricingOpen, setIsPricingOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [email, setEmail] = useState('');
   const [signupStatus, setSignupStatus] = useState('');
   const [signupKind, setSignupKind] = useState<'ok' | 'error' | ''>('');
@@ -139,6 +140,9 @@ function App() {
           <button className="topbar__cta" type="button" onClick={() => setIsSignupOpen(true)}>
             Sign Up
           </button>
+          <button className="topbar__menuButton" type="button" onClick={() => setIsMenuOpen(true)} aria-label="Open section menu">
+            ☰
+          </button>
         </div>
       </header>
 
@@ -180,7 +184,7 @@ function App() {
         <p className="triedBy__eyebrow">Tried By Lawyers At</p>
         <h2 id="tried-by-title">Already in the hands of lawyers at the firms and companies you know.</h2>
         <p className="triedBy__copy">
-          We&apos;ve shown Associate to in-house counsel, partners, and solo practitioners across India.
+          We&apos;ve shown Associate to in house counsel, partners, and solo practitioners across India.
         </p>
         <div className="triedBy__slider">
           <div className="triedBy__track">
@@ -302,6 +306,41 @@ function App() {
                   <li>Dedicated account team</li>
                 </ul>
               </article>
+            </div>
+          </div>
+        </div>
+      ) : null}
+
+      {isMenuOpen ? (
+        <div className="modalBackdrop" role="dialog" aria-modal="true" aria-label="Sections">
+          <div className="modal modal--menu">
+            <button className="modal__close" type="button" onClick={() => setIsMenuOpen(false)} aria-label="Close">
+              x
+            </button>
+            <p className="eyebrow">Navigate</p>
+            <h3>Go to a section</h3>
+            <div className="menuGrid">
+              <a href="#precision" onClick={() => setIsMenuOpen(false)}>The Problem</a>
+              <a href="#demos" onClick={() => setIsMenuOpen(false)}>How Associate Works</a>
+              <a href="#security" onClick={() => setIsMenuOpen(false)}>Security</a>
+              <button
+                type="button"
+                onClick={() => {
+                  setIsMenuOpen(false);
+                  setIsPricingOpen(true);
+                }}
+              >
+                Pricing
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setIsMenuOpen(false);
+                  setIsSignupOpen(true);
+                }}
+              >
+                Sign Up
+              </button>
             </div>
           </div>
         </div>

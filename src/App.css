@@ -31,6 +31,17 @@
   gap: 34px;
 }
 
+.topbar__menuButton {
+  display: none;
+  border: 1px solid var(--line);
+  background: #f8f6f2;
+  color: var(--ink);
+  width: 40px;
+  height: 40px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
 .topbar__nav a {
   text-decoration: none;
   color: var(--secondary);
@@ -60,6 +71,12 @@
   text-transform: uppercase;
   letter-spacing: 0.05em;
   cursor: pointer;
+}
+
+.topbar__right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .hero {
@@ -126,6 +143,8 @@
 }
 
 .capabilities {
+  width: 97%;
+  margin-inline: auto;
   display: grid;
   gap: 28px;
 }
@@ -159,6 +178,7 @@
   display: grid;
   gap: 12px;
   min-height: 270px;
+  min-width: 0;
 }
 
 .capabilityCard__titleRow {
@@ -175,6 +195,7 @@
 .capabilityCard h3 {
   font-size: clamp(24px, 2.5vw, 33px);
   line-height: 1.2;
+  overflow-wrap: anywhere;
 }
 
 .capabilityCard .muted {
@@ -182,6 +203,7 @@
 }
 
 .triedBy {
+  margin-inline: auto;
   background: #efebe5;
   color: var(--ink);
   border: 1px solid var(--line);
@@ -256,6 +278,8 @@
 }
 
 .security {
+  width: 96%;
+  margin-inline: auto;
   background: #efebe5;
   border: 1px solid var(--line);
   padding: 72px 24px;
@@ -329,6 +353,8 @@
 }
 
 .closingCta {
+  width: 97%;
+  margin-inline: auto;
   border: 1px solid var(--line);
   background: #efebe5;
   padding: 54px 24px;
@@ -375,6 +401,7 @@
   place-items: center;
   padding: 20px;
   z-index: 50;
+  overflow-y: auto;
 }
 
 .modal {
@@ -385,16 +412,44 @@
   display: grid;
   gap: 12px;
   position: relative;
+  max-height: calc(100svh - 40px);
+  overflow-y: auto;
 }
 
 .modal--pricing {
   width: min(980px, 100%);
 }
 
+.modal--menu {
+  width: min(460px, 100%);
+}
+
 .pricingGrid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
+}
+
+.menuGrid {
+  display: grid;
+  gap: 10px;
+}
+
+.menuGrid a,
+.menuGrid button {
+  text-decoration: none;
+  border: 1px solid var(--line);
+  background: #efebe5;
+  color: var(--ink);
+  min-height: 44px;
+  padding: 0 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-family: inherit;
+  font-size: 14px;
+  cursor: pointer;
 }
 
 .pricingCard {
@@ -460,6 +515,7 @@
   border: 1px solid var(--line);
   padding: 0 12px;
   font-size: 16px;
+  min-width: 0;
 }
 
 .modal__form button {
@@ -469,6 +525,7 @@
   color: #fff;
   font-weight: 700;
   padding: 0 16px;
+  white-space: nowrap;
 }
 
 .modal__status {
@@ -490,14 +547,12 @@
   }
 
   .topbar {
-    grid-template-columns: 1fr;
+    grid-template-columns: auto 1fr auto;
     gap: 12px;
   }
 
   .topbar__nav {
-    justify-content: flex-start;
-    flex-wrap: wrap;
-    gap: 16px;
+    display: none;
   }
 
   .hero {
@@ -505,10 +560,6 @@
   }
 
   .capabilities__grid {
-    grid-template-columns: 1fr;
-  }
-
-  .modal__form {
     grid-template-columns: 1fr;
   }
 
@@ -522,14 +573,58 @@
     width: calc(100% - 24px);
     gap: 56px;
   }
+  .security {
+    width: 97%;
+    padding: 72px 8px;
+  }
+  .topbar__menuButton {
+    display: inline-grid;
+    place-items: center;
+  }
 
+  
   .triedBy {
     padding: 32px 16px 24px;
+    width: 97%;
+    margin-right: 28px;
   }
 
   .triedBy__item {
     width: 72px;
     height: 72px;
+  }
+
+  .capabilityCard {
+      width: 97%;
+  }
+
+  .modalBackdrop {
+    padding: 12px;
+    align-items: start;
+  }
+
+  .modal {
+    max-height: calc(100svh - 24px);
+    padding: 18px;
+  }
+
+  .modal h3 {
+    font-size: 28px;
+  }
+
+  .modal__form {
+    grid-template-columns: 1fr auto;
+    gap: 8px;
+  }
+
+  .modal__form input {
+    font-size: 14px;
+    padding: 0 10px;
+  }
+
+  .modal__form button {
+    font-size: 12px;
+    padding: 0 10px;
   }
 
   .footer {
