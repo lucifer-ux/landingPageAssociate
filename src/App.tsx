@@ -1,6 +1,7 @@
 ﻿import { useMemo, useState } from 'react';
 import './App.css';
 import DemoSection from './components/DemoSection';
+import { Layers, RotateCcw, ShieldAlert, TimerOff } from 'lucide-react';
 import delloite from './assets/delloite.jpeg';
 import henryHuges from './assets/HenryHuges.jpeg';
 import logicGnosis from './assets/logicGnosis.jpeg';
@@ -78,13 +79,13 @@ const logos = [
   { src: wadiyaChandi, name: 'Wadiya Chandi' }
 ];
 
-function CapabilityIcon() {
-  return (
-    <svg className="capabilityCard__icon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
-      <path d="m4 20 6.5-6.5M10 6l8 8M8.4 4.4l2.2 2.2M13.5 9.5l2.2 2.2M18.6 14.6l2.2 2.2" />
-      <path d="M3.5 20.5h9" />
-    </svg>
-  );
+function CapabilityIcon({ title }: { title: string }) {
+  const iconProps = { className: 'capabilityCard__icon', size: 22, strokeWidth: 1.8, 'aria-hidden': true as const };
+
+  if (title === 'Context Fragmentation') return <Layers {...iconProps} />;
+  if (title === 'Session By Session AI') return <RotateCcw {...iconProps} />;
+  if (title === 'Verification Burden') return <ShieldAlert {...iconProps} />;
+  return <TimerOff {...iconProps} />;
 }
 
 function App() {
@@ -171,7 +172,7 @@ function App() {
           {capabilities.map((item) => (
             <article className="capabilityCard" key={item.title}>
               <div className="capabilityCard__titleRow">
-                <CapabilityIcon />
+                <CapabilityIcon title={item.title} />
                 <h3>{item.title}</h3>
               </div>
               <p className="muted">{item.body}</p>
@@ -350,3 +351,4 @@ function App() {
 }
 
 export default App;
+

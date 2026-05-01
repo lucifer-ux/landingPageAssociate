@@ -30,7 +30,18 @@ function DemoSection({ items }: DemoSectionProps) {
             </div>
             <div className="demoSplit__media">
               {item.mediaSrc ? (
-                <video className="demoSplit__video" src={item.mediaSrc} autoPlay loop muted playsInline controls />
+                <video
+                  className="demoSplit__video"
+                  src={item.mediaSrc}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  controls
+                  onLoadedMetadata={(event) => {
+                    event.currentTarget.playbackRate = 1.5;
+                  }}
+                />
               ) : (
                 <div className="demoSplit__placeholder">
                   <p>GIF placeholder</p>
