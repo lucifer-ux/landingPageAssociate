@@ -1,4 +1,4 @@
-﻿import { useMemo, useState } from 'react';
+﻿import { useEffect, useState } from 'react';
 import './App.css';
 import DemoSection from './components/DemoSection';
 import { Layers, RotateCcw, ShieldAlert, TimerOff } from 'lucide-react';
@@ -11,15 +11,7 @@ import wadiyaChandi from './assets/WadiyaChandi.jpeg';
 import firstPage from './assets/firstPage.mp4';
 import secondPage from './assets/secondPage.mp4';
 import thirdRecording from './assets/thirdrecording.mp4';
-
-const baseWaitlist = [
-  'rachel.hill@stonebridgelegal.com',
-  'arjun.mehra@northpointlaw.co',
-  'devon.white@arcchambers.io',
-  'sophia.lee@briefworksgroup.com',
-  'nina.patel@forgewestlegal.com',
-  'michael.ross@counselgrid.com'
-];
+import { buildApiUrl } from './api';
 
 const demos = [
   {
@@ -89,19 +81,38 @@ function CapabilityIcon({ title }: { title: string }) {
 }
 
 function App() {
-  const [waitlist, setWaitlist] = useState(baseWaitlist);
+  const [waitlistCount, setWaitlistCount] = useState(0);
   const [isSignupOpen, setIsSignupOpen] = useState(false);
   const [isPricingOpen, setIsPricingOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [email, setEmail] = useState('');
   const [signupStatus, setSignupStatus] = useState('');
   const [signupKind, setSignupKind] = useState<'ok' | 'error' | ''>('');
+  const [isLoadingCount, setIsLoadingCount] = useState(true);
 
-  const waitlistSet = useMemo(() => new Set(waitlist.map((item) => item.toLowerCase())), [waitlist]);
+  useEffect(() => {
+    const loadCount = async () => {
+      try {
+        const response = await fetch(buildApiUrl('/api/waitlist/count'));
+        if (!response.ok) {
+          throw new Error('Failed to load waitlist count');
+        }
 
-  const onSubmitWaitlist = (event: React.FormEvent<HTMLFormElement>) => {
+        const data = (await response.json()) as { ok: boolean; count?: number };
+        setWaitlistCount(typeof data.count === 'number' ? data.count : 0);
+      } catch {
+        setWaitlistCount(0);
+      } finally {
+        setIsLoadingCount(false);
+      }
+    };
+
+    void loadCount();
+  }, []);
+
+  const onSubmitWaitlist = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const normalized = email.trim().toLowerCase();
+    const normalized = email.trim();
 
     if (!normalized) {
       setSignupKind('error');
@@ -109,18 +120,30 @@ function App() {
       return;
     }
 
-    if (waitlistSet.has(normalized)) {
-      const position = waitlist.findIndex((item) => item.toLowerCase() === normalized) + 1;
-      setSignupKind('error');
-      setSignupStatus(`Already registered. Your waitlist number is #${position}.`);
-      return;
-    }
+    try {
+      const response = await fetch(buildApiUrl('/api/waitlist'), {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json'
+        },
+        body: JSON.stringify({ email: normalized })
+      });
 
-    const next = [...waitlist, email.trim()];
-    setWaitlist(next);
-    setSignupKind('ok');
-    setSignupStatus(`Signup complete. Your waitlist number is #${next.length}.`);
-    setEmail('');
+      const result = (await response.json()) as { ok: boolean; message: string; position?: number };
+      setSignupKind(result.ok ? 'ok' : 'error');
+      setSignupStatus(result.message);
+
+      if (result.ok) {
+        setEmail('');
+      }
+
+      if (typeof result.position === 'number') {
+        setWaitlistCount((current) => Math.max(current, result.position ?? 0));
+      }
+    } catch {
+      setSignupKind('error');
+      setSignupStatus('Unable to submit right now. Please try again.');
+    }
   };
 
   return (
@@ -142,7 +165,7 @@ function App() {
             Sign Up
           </button>
           <button className="topbar__menuButton" type="button" onClick={() => setIsMenuOpen(true)} aria-label="Open section menu">
-            ☰
+            &#9776;
           </button>
         </div>
       </header>
@@ -240,7 +263,7 @@ function App() {
             </button>
             <p className="eyebrow">Early Access</p>
             <h3>Join the Associate waitlist</h3>
-            <p className="muted">Current waitlist size: {waitlist.length}</p>
+            <p className="muted">Current waitlist size: {isLoadingCount ? '...' : waitlistCount}</p>
             <form className="modal__form" onSubmit={onSubmitWaitlist}>
               <input
                 type="email"
@@ -269,7 +292,7 @@ function App() {
             <div className="pricingGrid">
               <article className="pricingCard">
                 <h4>Free</h4>
-                <p>₹0 / month</p>
+                <p>&#8377;0 / month</p>
                 <ul>
                   <li>1 document</li>
                   <li>5,000 tokens per day</li>
@@ -279,7 +302,7 @@ function App() {
               </article>
               <article className="pricingCard">
                 <h4>Starter</h4>
-                <p>₹2,200 / month</p>
+                <p>&#8377;2,200 / month</p>
                 <ul>
                   <li>7 documents</li>
                   <li>20,000 AI tokens</li>
@@ -351,4 +374,13 @@ function App() {
 }
 
 export default App;
+
+
+
+
+
+
+
+
+
 

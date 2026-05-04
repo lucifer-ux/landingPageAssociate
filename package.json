@@ -5,9 +5,13 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "worker:dev": "npx wrangler dev --config ../worker/wrangler.toml --port 8787",
+    "dev:full": "node -e \"const cp=require('child_process');const a=cp.spawn('npm',['run','worker:dev'],{stdio:'inherit',shell:true});const b=cp.spawn('npm',['run','dev'],{stdio:'inherit',shell:true});const stop=()=>{a.kill();b.kill();process.exit(0)};process.on('SIGINT',stop);process.on('SIGTERM',stop);\"",
     "build": "tsc -b && vite build",
+    "worker:typecheck": "tsc -p ../worker/tsconfig.json",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "worker:deploy": "npx wrangler deploy --config ../worker/wrangler.toml"
   },
   "dependencies": {
     "lucide-react": "^1.14.0",
@@ -19,6 +23,7 @@
     "@eslint/js": "^10.0.1",
     "@rolldown/plugin-babel": "^0.2.3",
     "@types/babel__core": "^7.20.5",
+    "@cloudflare/workers-types": "^4.20260502.0",
     "@types/node": "^24.12.2",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",

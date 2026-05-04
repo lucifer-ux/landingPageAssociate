@@ -109,24 +109,3 @@
   }
 }
 
-@media (max-width: 1100px) {
-  .demoSplit,
-  .demoSplit--reverse {
-    grid-template-columns: 1fr;
-    gap: 18px;
-  }
-
-  .demoSplit--reverse .demoSplit__text,
-  .demoSplit--reverse .demoSplit__media {
-    order: initial;
-  }
-
-  .demoSplit__placeholder {
-    min-height: 280px;
-  }
-
-  .demoSplit__video {
-    min-height: 260px;
-    max-height: 380px;
-  }
-}
